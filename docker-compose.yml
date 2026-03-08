@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  backend-app:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/var/www
+    depends_on:
+      - mysql_db
+    ports:
+      - "8080:80"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  frontend-app:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=mysql_db
+      - PMA_USER=root
+      - PMA_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql_db
+volumes:
+  db_data:

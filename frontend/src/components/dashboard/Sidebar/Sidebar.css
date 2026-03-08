@@ -1,0 +1,49 @@
+aside {
+  margin: 20px 50px 0px 0px;
+}
+
+ul > li {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.menu-icon {
+  margin-right: 20px;
+}
+
+.btn-sidebar {
+  display: flex; /* Giúp icon và chữ nằm thẳng hàng */
+  align-items: center;
+  gap: 12px; /* Khoảng cách giữa icon và chữ */
+  width: 100%; /* Để nút bấm chiếm hết chiều ngang Sidebar */
+  text-align: left;
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.8em 1.2em; /* Tăng nhẹ padding cho dễ bấm */
+  font-size: 14px; /* Cỡ chữ chuẩn cho Dashboard */
+  font-weight: 500;
+  background-color: transparent; /* Mặc định trong suốt để nhìn chuyên nghiệp hơn */
+  color: #747474; /* Màu chữ xám nhẹ cho menu chưa chọn */
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; /* Dùng 'all' để mượt hơn cả màu nền và màu chữ */
+}
+
+/* Hiệu ứng khi di chuột (Hover) */
+.btn-sidebar:hover {
+  background-color: #bcbdbf; /* Màu nền tối hơn một chút */
+  color: #000; /* Đổi chữ sang màu xanh PC MASTER */
+}
+
+/* Trạng thái đang được chọn (Active) */
+.btn-sidebar.active {
+  background-color: #0ea5e9;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+
+/* Nếu bạn muốn nút đầu tiên (Dashboard) luôn có màu khác biệt */
+.btn-sidebar:first-child {
+  margin-top: 10px;
+}
