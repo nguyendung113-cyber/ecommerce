@@ -1,0 +1,48 @@
+.dashboard-header {
+  height: 64px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Đẩy tiêu đề sang trái, User sang phải */
+  padding: 0 24px;
+  border-bottom: solid 2px #e3e3e3;
+  z-index: 10;
+}
+
+.header-left h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: #38bdf8; /* Màu xanh PC Master */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: #475569;
+}
