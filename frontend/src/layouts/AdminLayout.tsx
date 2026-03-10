@@ -1,16 +1,17 @@
 // src/layouts/AdminLayout.tsx
-import Header from "../components/dashboard/Header.tsx/Header";
+import Header from "../components/dashboard/Header/Header"; // Sửa lại path nếu bị dư .tsx
 import Sidebar from "../components/dashboard/Sidebar/Sidebar";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar />
-      <main style={{ width: "80%", backgroundColor: "#f8fafc" }}>
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      <Sidebar /> 
+      <div className="main" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Header />
-
-        {children}
-      </main>
+        <main style={{ flex: 1, padding: "20px", backgroundColor: "#f8fafc" }}>
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
