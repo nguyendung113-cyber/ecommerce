@@ -1,10 +1,21 @@
+import { Routes, Route } from "react-router-dom"; // Import các component điều hướng
 import AdminLayout from "./layouts/AdminLayout";
-import ProductPage from "./pages/ProductPage"; // Đảm bảo đường dẫn này đúng với cấu trúc thư mục của bạn
+import InventoryPage from "./pages/InventoryPage/InventoryPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
     <AdminLayout>
-      <ProductPage />
+      <Routes>
+        {/* Trang chủ hoặc trang sản phẩm */}
+        <Route path="/" element={<ProductPage />} />
+        <Route path="/products" element={<ProductPage />} />
+
+        {/* Trang nhập kho */}
+        <Route path="/inventory" element={<InventoryPage />} />
+        
+        {/* Bạn có thể thêm các route khác như /settings, /support ở đây */}
+      </Routes>
     </AdminLayout>
   );
 }
