@@ -22,8 +22,24 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin PC Master',
+            'email' => 'admin@pcmaster.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('Anhdung001'),
+            'role' => 'admin',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Sales Staff',
+            'email' => 'sales@pcmaster.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('Anhdung001'),
+            'role' => 'sales',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Normal User',
+            'email' => 'user@gmail.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('Anhdung001'),
+            'role' => 'user',
         ]);
     }
 }

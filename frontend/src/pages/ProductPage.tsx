@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/productApi";
 import type { Product } from "../types/product";
+import { useCartStore } from "../store/cartStore";
 
 function ProductPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -68,6 +70,22 @@ function ProductPage() {
                   <strong>Thông số:</strong> {JSON.stringify(product.specs)}
                 </div>
               )}
+              <button 
+                onClick={() => addItem(product as any)}
+                style={{
+                  marginTop: "15px",
+                  padding: "8px 16px",
+                  backgroundColor: "#2563eb",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  width: "100%"
+                }}
+              >
+                Thêm vào giỏ hàng
+              </button>
             </div>
           ))
         ) : (

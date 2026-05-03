@@ -2,17 +2,30 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run() {
-        \App\Models\Category::create(['name' => 'Laptop', 'slug' => 'laptop']);
-        \App\Models\Category::create(['name' => 'PC Gaming', 'slug' => 'pc-gaming']);
-        \App\Models\Category::create(['name' => 'Tay cầm', 'slug' => 'tay-cam']);
+    public function run(): void
+    {
+        $categories = [
+            'Laptop Gaming',
+            'CPU - Bộ vi xử lý',
+            'VGA - Card màn hình',
+            'Mainboard - Bo mạch chủ',
+            'RAM - Bộ nhớ trong',
+            'Ổ cứng SSD/HDD',
+            'Nguồn máy tính (PSU)',
+            'Vỏ case'
+        ];
+
+        foreach ($categories as $cat) {
+            Category::create([
+                'name' => $cat,
+                'slug' => Str::slug($cat)
+            ]);
+        }
     }
 }

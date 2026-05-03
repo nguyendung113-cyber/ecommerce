@@ -1,0 +1,13 @@
+vendor
+node_modules
+.git
+.env
+Dockerfile
+.dockerignore
+storage/*.key
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+auth.json

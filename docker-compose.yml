@@ -1,51 +1,86 @@
 version: "3.8"
 
 services:
-  mysql_db:
+  # Database - MySQL 8.0
+  db:
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-shop_db}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_USER: ${DB_USER:-admin}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-admin}
     volumes:
       - db_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-  backend-app:
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+
+  # Laravel App (PHP-FPM)
+  backend:
     build:
       context: ./backend
+    container_name: pcmaster_backend
     volumes:
       - ./backend:/var/www
     depends_on:
-      - mysql_db
-    ports:
-      - "8080:80"
+      - db
     deploy:
       resources:
         limits:
           memory: 512M
 
-  frontend-app:
+  # Nginx Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: pcmaster_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  # Frontend (React + Vite)
+  frontend:
     build:
       context: ./frontend
+    container_name: pcmaster_frontend
     volumes:
       - ./frontend:/app
       - /app/node_modules
     ports:
       - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
+  # Công cụ quản lý Database (Giao diện Web)
   phpmyadmin:
     image: phpmyadmin
+    container_name: pcmaster_phpmyadmin
     restart: always
     ports:
       - "8081:80"
     environment:
-      - PMA_HOST=mysql_db
+      - PMA_HOST=db
       - PMA_USER=root
-      - PMA_PASSWORD=${DB_PASSWORD}
+      - PMA_PASSWORD=${DB_ROOT_PASSWORD:-root}
     depends_on:
-      - mysql_db
+      - db
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
 volumes:
   db_data:
